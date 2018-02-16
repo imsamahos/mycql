@@ -1,0 +1,12 @@
+Question: Give me top salary among all departments: 
+
+With NumberedItems As (
+select e_id, e_sal, e_name, dept_id
+, row_number() over (
+--partition by dept_id 
+order by e_sal desc) as maxsal
+from employee
+)
+Select e_Id, e_Sal, e_Name, dept_id,maxsal 
+From NumberedItems 
+Where maxsal < 2;
